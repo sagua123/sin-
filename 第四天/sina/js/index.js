@@ -1,6 +1,8 @@
 
 var $oul = $('.ulBox'),
-    $listBox = $('.listBox');
+    $listBox = $('.listBox'),
+      $tabs =$('.tab_box ul li'),
+      $tabContents=$('.tab_content');
 
 /*
 * 实现 轮播图
@@ -103,7 +105,7 @@ p.then(function (data) {
 
 var listPro = new Promise(function (resolve, reject) {
    $.ajax({
-       type:'post',
+       type:'get',
        url:'./data/list.json',
        data:{t:1},
        success:function (data) {
@@ -178,3 +180,8 @@ function giveListHtml(data) {
 listPro.then(function (data) {
     giveListHtml(data);
 });
+$tabs.on('touchend',function () {
+    console.log(this);
+    $(this).addClass('current').siblings().removeClass('current');
+    $tabContents.eq($(this).index()).show().siblings('.tab_content').hide();
+})
